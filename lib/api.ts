@@ -1,22 +1,29 @@
-// lib/api.ts
+//: lib/api.ts
 
 // imports
-import axios from "axios";
+import axios from 'axios';
 
-// interface
-import { type Note } from "../types/note";
-import { type NewNote } from "../types/note";
-import { NoteTag } from "../types/note";
+//: interface
+import { type Note } from '../types/note';
+import { type NewNote } from '../types/note';
+// import { NoteTag } from '../types/note';
 
 export interface FetchNotesResponse {
   notes: Note[];
   totalPages: number;
 }
 
-// Key
+//: Key
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-axios.defaults.baseURL = "https://notehub-public.goit.study/api";
+// axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 
+// : Instants axios (module 9)
+const nextServer = axios.create({
+  baseURL: 'https://notehub-public.goit.study/api',
+  withCredentials: true, // дозволяє axios працювати з cookie
+});
+
+// : GET Request for all notes
 export const fetchNotes = async ({
   page,
   query,
@@ -26,7 +33,7 @@ export const fetchNotes = async ({
   query: string;
   tag?: string;
 }) => {
-  const res = await axios.get<FetchNotesResponse>("/notes", {
+  const res = await nextServer.get<FetchNotesResponse>('/notes', {
     params: {
       page,
       search: query,
@@ -40,8 +47,9 @@ export const fetchNotes = async ({
   return res.data;
 };
 
+// : GET request of one note
 export const fetchNoteById = async (noteId: string) => {
-  const res = await axios.get<Note>(`/notes/${noteId}`, {
+  const res = await nextServer.get<Note>(`/notes/${noteId}`, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -49,8 +57,9 @@ export const fetchNoteById = async (noteId: string) => {
   return res.data;
 };
 
+// : POST request for add a note
 export const createNote = async (taskData: NewNote) => {
-  const res = await axios.post<Note>("/notes", taskData, {
+  const res = await nextServer.post<Note>('/notes', taskData, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -58,8 +67,9 @@ export const createNote = async (taskData: NewNote) => {
   return res.data;
 };
 
+// : DELETE request for delete a note
 export const deleteNote = async (taskId: string) => {
-  const res = await axios.delete<Note>(`/notes/${taskId}`, {
+  const res = await nextServer.delete<Note>(`/notes/${taskId}`, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
