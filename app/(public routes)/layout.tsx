@@ -37,14 +37,10 @@ export default function RootLayout({
   // modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <TanStackProvider>
-          {children}
-          {/* {modal} */}
-          {/* <div id="modal-root"></div> */}
-        </TanStackProvider>
-      </body>
-    </html>
+    <TanStackProvider>
+      {children}
+      {/* {modal} */}
+      {/* <div id="modal-root"></div> */}
+    </TanStackProvider>
   );
 }
