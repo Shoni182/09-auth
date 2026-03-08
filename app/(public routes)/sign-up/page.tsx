@@ -2,10 +2,9 @@
 import css from './SignUpPage.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { register } from '@/lib/api';
+import { register } from '@/lib/api/clientApi';
 import { RegisterRequest } from '@/types/user';
-import { ApiError } from 'next/dist/server/api-utils';
-import { AxiosError } from 'axios';
+import { ApiError } from '@/app/api/api';
 
 export function SignUp() {
   const router = useRouter();
@@ -13,9 +12,12 @@ export function SignUp() {
 
   const handleSubmit = async (formData: FormData) => {
     try {
+      // Типізуємо данні форми
       const formValues = Object.fromEntries(formData) as RegisterRequest;
+      // виконується запит
       const res = await register(formValues);
 
+      // Виконуємо редірект або відображаємо помилку
       if (res) {
         router.push('/profile');
       } else {

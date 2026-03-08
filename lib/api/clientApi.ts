@@ -87,7 +87,9 @@ export const deleteNote = async (taskId: string) => {
   return res.data;
 };
 
+// : POST - register request on the nextServer
+
 export const register = async (data: RegisterRequest) => {
-  const res = await nextServer.post<User>('/app/api/auth/register', data);
+  const res = await nextServer.post<User>('/auth/register', data);
   return res.data;
 };
