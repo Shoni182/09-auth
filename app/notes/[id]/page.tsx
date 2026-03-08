@@ -1,15 +1,11 @@
 //: Libraries
-import {
-  QueryClient,
-  HydrationBoundary,
-  dehydrate,
-} from "@tanstack/react-query";
+import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
 //: Component
-import NoteDetails from "./NoteDetails.client";
-import { fetchNoteById } from "@/lib/api";
+import NoteDetails from './NoteDetails.client';
+import { fetchNoteById } from '@/lib/api/clientApi';
 
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 // Типізація
 type Props = {
   params: Promise<{ id: string }>;
@@ -28,10 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://08-zustand-eight-beta.vercel.app/notes/${id}`,
       images: [
         {
-          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
           width: 640,
           height: 640,
-          alt: "NoteHub Logo image",
+          alt: 'NoteHub Logo image',
         },
       ],
     },
@@ -48,7 +44,7 @@ const NotePage = async ({ params }: Props) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["note", id],
+    queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
   });
 

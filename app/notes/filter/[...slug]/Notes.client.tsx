@@ -1,19 +1,19 @@
 // app/notes/filter/[...slug]/Notes.client.tsx
 //?  USE CLIETN derective for - CSR Client side rendering
 //
-"use client";
-import { fetchNotes } from "@/lib/api";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
-import css from "./Notes.module.css";
-import Link from "next/link";
+'use client';
+import { fetchNotes } from '@/lib/api/clientApi';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
+import css from './Notes.module.css';
+import Link from 'next/link';
 
 //: Components
 
-import Pagination from "@/components/Pagination/Pagination";
-import SearchBox from "@/components/SearchBox/SearchBox";
-import NoteList from "@/components/NoteList/NoteList";
+import Pagination from '@/components/Pagination/Pagination';
+import SearchBox from '@/components/SearchBox/SearchBox';
+import NoteList from '@/components/NoteList/NoteList';
 
 type Props = {
   tag?: string;
@@ -28,7 +28,7 @@ const Notes = ({ tag }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   //: Search and Debounce
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const debaucedSetQuery = useDebouncedCallback(setQuery, 300);
 
   const handleSearch = (value: string) => {
@@ -38,7 +38,7 @@ const Notes = ({ tag }: Props) => {
 
   //: Use Query
   const { data, isSuccess } = useQuery({
-    queryKey: ["notes", currentPage, query, tag],
+    queryKey: ['notes', currentPage, query, tag],
     queryFn: () =>
       fetchNotes({
         page: currentPage,
