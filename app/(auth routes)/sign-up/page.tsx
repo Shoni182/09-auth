@@ -1,11 +1,40 @@
 'use client';
 import css from './SignUpPage.module.css';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { register } from '@/lib/api';
+import { RegisterRequest } from '@/types/user';
+import { ApiError } from 'next/dist/server/api-utils';
+import { AxiosError } from 'axios';
 
-const SignUp = () => {
+export function SignUp() {
+  const router = useRouter();
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      const formValues = Object.fromEntries(formData) as RegisterRequest;
+      const res = await register(formValues);
+
+      if (res) {
+        router.push('/profile');
+      } else {
+        setError('invalid email or password');
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          'Oops... some error',
+      );
+    }
+  };
+
   return (
     <main className={css.mainContent}>
       <h1 className={css.formTitle}>Sign up</h1>
-      <form className={css.form}>
+
+      <form action={handleSubmit} className={css.form}>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" className={css.input} required />
@@ -26,6 +55,4 @@ const SignUp = () => {
       </form>
     </main>
   );
-};
-
-export default SignUp;
+}
