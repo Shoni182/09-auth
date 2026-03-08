@@ -5,10 +5,12 @@ import { useRouter } from 'next/navigation';
 import { register } from '@/lib/api/clientApi';
 import { RegisterRequest } from '@/types/user';
 import { ApiError } from '@/app/api/api';
+import { useAuthStore } from '@/lib/store/authStore';
 
-export function SignUp() {
+const SignUp = () => {
   const router = useRouter();
   const [error, setError] = useState('');
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -19,7 +21,8 @@ export function SignUp() {
 
       // Виконуємо редірект або відображаємо помилку
       if (res) {
-        router.push('/profile');
+        // router.push('/profile');
+        setUser(res);
       } else {
         setError('invalid email or password');
       }
@@ -31,12 +34,10 @@ export function SignUp() {
       );
     }
   };
-
   return (
     <main className={css.mainContent}>
-      <h1 className={css.formTitle}>Sign up</h1>
-
       <form action={handleSubmit} className={css.form}>
+        <h1 className={css.formTitle}>Sign up</h1>
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input id="email" type="email" name="email" className={css.input} required />
@@ -57,4 +58,6 @@ export function SignUp() {
       </form>
     </main>
   );
-}
+};
+
+export default SignUp;

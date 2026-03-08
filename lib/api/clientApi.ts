@@ -6,17 +6,6 @@
 
 // Додавати специфічні meta-теги на сторінку реєстрації не потрібно (2)
 
-// fetchNotes;
-// fetchNoteById;
-// createNote;
-// deleteNote;
-// register;
-// login;
-// logout;
-// checkSession;
-// getMe;
-// updateMe;
-
 // lib/api/clientApi.ts — для функцій, які викликаються у клієнтських компонентах:
 
 //: Imports
@@ -43,7 +32,7 @@ export const fetchNotes = async ({
   query: string;
   tag?: string;
 }) => {
-  const res = await nextServer.get<FetchNotesResponse>('/app/api/notes', {
+  const res = await nextServer.get<FetchNotesResponse>('/api/notes', {
     params: {
       page,
       search: query,
@@ -59,7 +48,7 @@ export const fetchNotes = async ({
 
 // : GET request of one note
 export const fetchNoteById = async (noteId: string) => {
-  const res = await nextServer.get<Note>(`/app/api/notes/[id]/${noteId}`, {
+  const res = await nextServer.get<Note>(`/api/notes/[id]/${noteId}`, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -69,7 +58,7 @@ export const fetchNoteById = async (noteId: string) => {
 
 // : POST request for add a note
 export const createNote = async (taskData: NewNote) => {
-  const res = await nextServer.post<Note>('/app/api/notes/', taskData, {
+  const res = await nextServer.post<Note>('/api/notes/', taskData, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -79,7 +68,7 @@ export const createNote = async (taskData: NewNote) => {
 
 // : DELETE request for delete a note
 export const deleteNote = async (taskId: string) => {
-  const res = await nextServer.delete<Note>(`/app/api/notes/${taskId}`, {
+  const res = await nextServer.delete<Note>(`/api/notes/${taskId}`, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -90,6 +79,39 @@ export const deleteNote = async (taskId: string) => {
 // : POST - register request on the nextServer
 
 export const register = async (data: RegisterRequest) => {
-  const res = await nextServer.post<User>('/auth/register', data);
+  const res = await nextServer.post<User>('api/auth/register', data);
+  return res.data;
+};
+
+// : POST - register request on the nextServer
+
+export const login = async (data: RegisterRequest) => {
+  const res = await nextServer.post<User>('api/auth/login', data);
+  return res.data;
+};
+
+//: logout;
+export const logout = async (data: RegisterRequest) => {
+  const res = await nextServer.post<User>('api/auth/logout', data);
+  return res.data;
+};
+
+//: checkSession;
+export const checkSession = async () => {
+  const res = await nextServer.get<User>('api/auth/session');
+  return res.data;
+};
+
+//: getMe;
+
+export const getMe = async () => {
+  const res = await nextServer.get<User>('api/users/me');
+  return res.data;
+};
+
+//: updateMe;
+
+export const updateMe = async () => {
+  const res = await nextServer.patch<User>('api/users/me');
   return res.data;
 };

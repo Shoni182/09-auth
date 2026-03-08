@@ -1,11 +1,12 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+// import { persist } from 'zustand/middleware';
 import { User } from '@/types/user';
 
-type UserDraftStore = {
-  draft: User;
-  setDraft: (note: User) => void;
-  clearDraft: () => void;
+type AuthStore = {
+  isAuth: boolean;
+  user: User | null;
+  setUser: (user: User) => void;
+  clearIsAuth: () => void;
 };
 
 const initialDraft: User = {
@@ -14,18 +15,9 @@ const initialDraft: User = {
   avatar: '',
 };
 
-export const useUserDraftStore = create<UserDraftStore>()(
-  persist(
-    (set) => ({
-      draft: initialDraft,
-      setDraft: (user) => set(() => ({ draft: user })),
-      clearDraft: () => set(() => ({ draft: initialDraft })),
-    }),
-    {
-      // Ключ у localStorage
-      name: 'user-draft',
-      // Зберігаємо лише властивість draft
-      partialize: (state) => ({ draft: state.draft }),
-    },
-  ),
-);
+export const useAuthStore = create<AuthStore>()((set) => ({
+  isAuth: false,
+  user: null,
+  setUser: (user) => set(() => ({ user: user })),
+  clearIsAuth: () => set(() => ({ user: initialDraft })),
+}));

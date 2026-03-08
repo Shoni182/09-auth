@@ -4,6 +4,6 @@ import axios from 'axios';
 
 // next server
 export const nextServer = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://localhost:3000',
   withCredentials: true,
 });
