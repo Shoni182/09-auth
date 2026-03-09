@@ -1,27 +1,27 @@
 'use client';
 import css from './Header.module.css';
 import Link from 'next/link';
+import AuthNavigation from '../AuthNavigation/AuthNavigation';
 
-import { useAuthStore } from '@/lib/store/authStore';
-import { logout } from '@/lib/api/clientApi';
-
-import { useRouter } from 'next/navigation';
+// import { useAuthStore } from '@/lib/store/authStore';
+// import { logout } from '@/lib/api/clientApi';
+// import { useRouter } from 'next/navigation';
 
 const Header = () => {
-  const router = useRouter();
-  const { isAuth, user } = useAuthStore();
+  // const router = useRouter();
+  // const { isAuth, user } = useAuthStore();
   // const [refresh, setIsRefres] = useState();
 
-  const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuth);
+  // const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuth);
 
-  const handleLogout = async () => {
-    // Call logout
-    await logout();
-    // Чистимо глобальний стан
-    clearIsAuthenticated();
-    // Виконуємо навігацію на сторінку аторизації
-    router.push('/sign-in');
-  };
+  // const handleLogout = async () => {
+  //   // Call logout
+  //   await logout();
+  //   // Чистимо глобальний стан
+  //   clearIsAuthenticated();
+  //   // Виконуємо навігацію на сторінку аторизації
+  //   router.push('/sign-in');
+  // };
 
   return (
     <header className={css.header}>
@@ -36,33 +36,7 @@ const Header = () => {
           <li>
             <Link href="/notes/filter/all">Notes</Link>
           </li>
-
-          {isAuth ? (
-            <li className={css.navigationItem}>
-              <li className={css.navigationItem}>
-                <Link href="/profile" prefetch={false} className={css.navigationLink}>
-                  Profile
-                </Link>
-              </li>
-              <button onClick={handleLogout} className={css.logoutButton}>
-                Logout
-              </button>
-              <p className={css.userEmail}>{user?.username}</p>
-            </li>
-          ) : (
-            <>
-              <li className={css.navigationItem}>
-                <Link href="/sign-in" prefetch={false} className={css.navigationLink}>
-                  Login
-                </Link>
-              </li>
-              <li className={css.navigationItem}>
-                <Link href="/sign-up" prefetch={false} className={css.navigationLink}>
-                  Sign up
-                </Link>
-              </li>
-            </>
-          )}
+          <AuthNavigation />
         </ul>
       </nav>
     </header>

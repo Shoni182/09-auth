@@ -54,8 +54,8 @@ const SignIn = () => {
             Log in
           </button>
         </div>
-
-        <p className={css.error}>{error}</p>
+        {error && <p>{error}</p>}
+        {/* <p className={css.error}>{error}</p> */}
       </form>
     </main>
   );

@@ -8,11 +8,11 @@ type AuthStore = {
   clearIsAuth: () => void;
 };
 
-const initialDraft: User = {
-  email: '',
-  username: '',
-  avatar: '',
-};
+// const initialDraft: User = {
+//   email: '',
+//   username: '',
+//   avatar: '',
+// };
 
 //- тут була помилка в тому, що не були передані стани isAuth. бекенд працював
 //- але навігація не поновлювалась

@@ -96,7 +96,7 @@ export const login = async (data: RegisterRequest) => {
 
 //: POST - logout;
 export const logout = async (): Promise<void> => {
-  await nextServer.post<User>('api/auth/logout');
+  await nextServer.post('api/auth/logout');
 };
 
 //: checkSession;
