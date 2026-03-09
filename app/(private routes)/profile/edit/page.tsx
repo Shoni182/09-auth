@@ -20,10 +20,14 @@ const EditUserProfile = () => {
     email: '',
     avatar: '',
   };
+
   const router = useRouter();
   const [error, setError] = useState('');
   const [user, setLocalUser] = useState(initialValues);
   const setUser = useAuthStore((state) => state.setUser);
+
+  // Додаємо стан для контрольованого інпуту
+  const [usernameInput, setUsernameInput] = useState('');
 
   const handleBack = () => {
     router.push('/profile');
@@ -34,24 +38,33 @@ const EditUserProfile = () => {
       try {
         const data = await getMe();
         setLocalUser(data);
+        setUsernameInput(data.username); // Ініціалізуємо інпут отриманим значенням
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchUser();
   }, []);
 
   const handleSubmit = async (formData: FormData) => {
     try {
-      const formValues = Object.fromEntries(formData) as UpdateNameProp;
-      const user = await updateMe(formValues);
-      if (user) {
-        setUser(user);
-      } else {
-        setError('invalid username');
+      setError('');
+      const username = formData.get('username') as string;
+
+      if (!username.trim()) {
+        setError('Username cannot be empty');
+        return;
       }
-      return;
+
+      const updatedUser = await updateMe({ username });
+
+      if (updatedUser) {
+        setUser(updatedUser);
+        setLocalUser(updatedUser);
+        router.push('/profile'); // Опціонально: редирект після успіху
+      } else {
+        setError('Invalid username');
+      }
     } catch (error) {
       setError(
         (error as ApiError).response?.data?.error ??
@@ -66,21 +79,30 @@ const EditUserProfile = () => {
       <div className={css.profileCard}>
         <h1 className={css.formTitle}>Edit Profile</h1>
 
-        <Image
-          src={user.avatar}
-          alt="User Avatar"
-          width={120}
-          height={120}
-          className={css.avatar}
-        />
+        {user.avatar && (
+          <Image
+            src={user.avatar}
+            alt="User Avatar"
+            width={120}
+            height={120}
+            className={css.avatar}
+          />
+        )}
 
         <form action={handleSubmit} className={css.profileInfo}>
           <div className={css.usernameWrapper}>
-            <label htmlFor="username">Username: {user.username}</label>
-            <input id="username" type="text" className={css.input} />
+            <label htmlFor="username">Username:</label>
+            <input
+              id="username"
+              name="username" // КЛЮЧОВЕ: додано name для FormData
+              type="text"
+              className={css.input}
+              value={usernameInput} // КЛЮЧОВЕ: тепер поле контрольоване
+              onChange={(e) => setUsernameInput(e.target.value)}
+            />
           </div>
 
-          <p>Email:{user.email}</p>
+          <p className={css.emailText}>Email: {user.email}</p>
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>
@@ -90,7 +112,7 @@ const EditUserProfile = () => {
               Cancel
             </button>
           </div>
-          {error && <p>{error}</p>}
+          {error && <p className={css.errorMessage}>{error}</p>}
         </form>
       </div>
     </main>
