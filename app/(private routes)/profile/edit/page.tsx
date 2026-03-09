@@ -23,12 +23,13 @@ const EditUserProfile = () => {
   const handleSubmit = async (formData: FormData) => {
     try {
       const formValues = Object.fromEntries(formData) as UpdateNameProp;
-      const res = await updateMe(formValues);
-      if (res) {
-        setUser(res);
+      const user = await updateMe(formValues);
+      if (user) {
+        setUser(user);
       } else {
         setError('invalid username');
       }
+      return;
     } catch (error) {
       setError(
         (error as ApiError).response?.data?.error ??

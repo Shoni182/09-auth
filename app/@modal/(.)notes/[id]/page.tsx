@@ -1,4 +1,4 @@
-import { fetchNoteById } from '@/lib/api/clientApi';
+import { fetchNoteById } from '@/lib/api/serverApi';
 //: Libraries
 import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
 // import css from "./Modal.module.css";

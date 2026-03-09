@@ -2,7 +2,11 @@
 //  SSR server side rendering - default mode
 import Notes from './Notes.client';
 import type { Metadata } from 'next';
-import type { NoteTag } from '@/types/note';
+//: Libraries
+import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
+
+//: Component
+import { fetchNotes } from '@/lib/api/serverApi';
 
 type Props = {
   params: Promise<{ slug: string[] }>;
@@ -56,12 +60,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
-
-//: Libraries
-import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
-
-//: Component
-import { fetchNotes } from '@/lib/api/clientApi';
 
 // : Server prefetch
 const NotesPage = async ({ params }: Props) => {

@@ -3,7 +3,7 @@ import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query
 
 //: Component
 import NoteDetails from './NoteDetails.client';
-import { fetchNoteById } from '@/lib/api/clientApi';
+import { fetchNoteById } from '@/lib/api/serverApi';
 
 import type { Metadata } from 'next';
 // Типізація

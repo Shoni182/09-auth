@@ -10,41 +10,41 @@ import { useRouter } from 'next/navigation';
 import { useNoteDraftStore } from '@/lib/store/noteStore';
 
 // metatags
-import { Metadata } from 'next';
+// import { Metadata } from 'next';
 
-type Props = {
-  params: NewNote;
-};
+// type Props = {
+//   params: NewNote;
+// };
 
 // Добавити Router
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { title, content } = await params;
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   const { title, content } = await params;
 
-  return {
-    title: title,
-    description: content,
-    openGraph: {
-      title: title,
-      description: content,
-      url: `https://08-zustand-eight-beta.vercel.app/notes/action/create`,
-      images: [
-        {
-          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-          width: 640,
-          height: 640,
-          alt: 'NoteHub Logo image',
-        },
-      ],
-    },
-  };
-}
+//   return {
+//     title: title,
+//     description: content,
+//     openGraph: {
+//       title: title,
+//       description: content,
+//       url: `https://08-zustand-eight-beta.vercel.app/notes/action/create`,
+//       images: [
+//         {
+//           url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+//           width: 640,
+//           height: 640,
+//           alt: 'NoteHub Logo image',
+//         },
+//       ],
+//     },
+//   };
+// }
 
-const initialValues: NewNote = {
-  title: '',
-  content: '',
-  tag: 'Todo',
-};
+// const initialValues: NewNote = {
+//   title: '',
+//   content: '',
+//   tag: 'Todo',
+// };
 
 export default function NoteForm() {
   // 2. Викликаємо хук і отримуємо значення
@@ -62,7 +62,7 @@ export default function NoteForm() {
     });
   };
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     const note: NewNote = {
       title: formData.get('title') as string,
       content: formData.get('content') as string,
@@ -97,7 +97,7 @@ export default function NoteForm() {
           type="text"
           name="title"
           className={css.input}
-          defaultValue={draft?.title}
+          value={draft?.title}
           onChange={handleChange}
         />
         {/* <ErrorMessage component="span" name="title" className={css.error} /> */}
@@ -110,7 +110,7 @@ export default function NoteForm() {
           name="content"
           rows={8}
           className={css.textarea}
-          defaultValue={draft?.content}
+          value={draft?.content}
           onChange={handleChange}
         />
         {/* <ErrorMessage component="span" name="content" className={css.error} /> */}
@@ -122,7 +122,7 @@ export default function NoteForm() {
           id="tag"
           name="tag"
           className={css.select}
-          defaultValue={draft?.tag}
+          value={draft?.tag}
           onChange={handleChange}
         >
           <option value="Work">Work</option>

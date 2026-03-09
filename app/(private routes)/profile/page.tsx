@@ -45,7 +45,7 @@ const PrivatProfile = async () => {
         </div>
         <div className={css.avatarWrapper}>
           <Image
-            src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
+            src={user.avatar}
             alt="User Avatar"
             width={120}
             height={120}
