@@ -30,6 +30,10 @@ type RegisterRequest = {
   password: string;
 };
 
+export type UpdateNameProp = {
+  username: string;
+};
+
 //: Key
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_URL;
 
@@ -59,7 +63,7 @@ export const fetchNotes = async ({
 
 // : GET request of one note
 export const fetchNoteById = async (noteId: string) => {
-  const res = await clientApi.get<Note>(`/notes/[id]/${noteId}`, {
+  const res = await clientApi.get<Note>(`/notes/${noteId}`, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -121,7 +125,7 @@ export const getMe = async () => {
 
 //: updateMe;
 
-export const updateMe = async () => {
+export const updateMe = async (data: UpdateNameProp) => {
   const res = await clientApi.patch<User>('/users/me');
   return res.data;
 };

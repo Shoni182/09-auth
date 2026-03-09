@@ -11,8 +11,6 @@ import { User } from '@/types/user';
 //   success: boolean;
 // };
 
-//: Key
-const myKey = process.env.NEXT_PUBLIC_NOTEHUB_URL;
 // : GET Request for all notes
 export const fetchNotes = async ({
   page,
@@ -23,15 +21,15 @@ export const fetchNotes = async ({
   query: string;
   tag?: string;
 }) => {
+  const cookieStore = await cookies();
   const res = await serverApi.get<FetchNotesResponse>('/notes', {
     params: {
       page,
       search: query,
       tag: tag,
-      //   cookies: '',
     },
     headers: {
-      Authorization: `Bearer ${myKey}`,
+      Cookie: cookieStore.toString(),
     },
   });
 
@@ -40,9 +38,10 @@ export const fetchNotes = async ({
 
 // : GET request of one note
 export const fetchNoteById = async (noteId: string) => {
-  const res = await serverApi.get<Note>(`/notes/[id]/${noteId}`, {
+  const cookieStore = await cookies();
+  const res = await serverApi.get<Note>(`/notes/${noteId}`, {
     headers: {
-      Authorization: `Bearer ${myKey}`,
+      Cookie: cookieStore.toString(),
     },
   });
   return res.data;
@@ -50,6 +49,7 @@ export const fetchNoteById = async (noteId: string) => {
 
 //: checkSession;
 export const checkSession = async () => {
+  const cookieStore = await cookies();
   const res = await serverApi.get('/auth/session', {
     headers: {
       Cookie: cookieStore.toString(),
