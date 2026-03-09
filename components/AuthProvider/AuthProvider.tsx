@@ -10,7 +10,7 @@ type Props = {
 
 const AuthProvider = ({ children }: Props) => {
   const setUser = useAuthStore((state) => state.setUser);
-  const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuth);
+  const clearIsAuthenticated = useAuthStore((state) => state.clearisAuthenticated);
 
   useEffect(() => {
     const fetchUser = async () => {
