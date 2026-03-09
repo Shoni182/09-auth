@@ -1,5 +1,6 @@
 'use client';
 import css from './EditProfilePage.module.css';
+import Image from 'next/image';
 
 const EditUserProfile = () => {
   return (
@@ -7,7 +8,13 @@ const EditUserProfile = () => {
       <div className={css.profileCard}>
         <h1 className={css.formTitle}>Edit Profile</h1>
 
-        <img src="avatar" alt="User Avatar" width={120} height={120} className={css.avatar} />
+        <Image
+          src="https://ac.goit.global/fullstack/react/default-avatar.jpg"
+          alt="User Avatar"
+          width={120}
+          height={120}
+          className={css.avatar}
+        />
 
         <form className={css.profileInfo}>
           <div className={css.usernameWrapper}>
