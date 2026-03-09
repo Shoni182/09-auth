@@ -33,7 +33,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const PrivatProfile = async () => {
   const user = await getMe();
-  // const { user } = useAuthStore();
 
   return (
     <main className={css.mainContent}>
@@ -54,7 +53,7 @@ const PrivatProfile = async () => {
           />
         </div>
         <div className={css.profileInfo}>
-          <p>Username:{user.username} </p>
+          <p>Username: {user.username} </p>
           <p>Email: {user.email} </p>
         </div>
       </div>

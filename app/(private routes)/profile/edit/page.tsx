@@ -57,7 +57,7 @@ const EditUserProfile = () => {
             <input id="username" type="text" className={css.input} />
           </div>
 
-          <p>Email: user_email@example.com</p>
+          <p>Email:</p>
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>
@@ -67,6 +67,7 @@ const EditUserProfile = () => {
               Cancel
             </button>
           </div>
+          {error && <p>{error}</p>}
         </form>
       </div>
     </main>

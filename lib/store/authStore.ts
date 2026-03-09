@@ -8,11 +8,26 @@ type AuthStore = {
   clearIsAuth: () => void;
 };
 
+// type UserNameStore = {
+//   user: User | null;
+// };
+
 // const initialDraft: User = {
 //   email: '',
 //   username: '',
 //   avatar: '',
 // };
+
+// export const useAuthStore = create<AuthStore>()((set) => ({
+//   isAuth: false,
+//   user: null,
+//   setUser: (user: User) => {
+//     set(() => ({ user, isAuth: true }));
+//   },
+//   clearIsAuth: () => {
+//     set(() => ({ user: null, isAuth: false }));
+//   },
+// }));
 
 //- тут була помилка в тому, що не були передані стани isAuth. бекенд працював
 //- але навігація не поновлювалась
