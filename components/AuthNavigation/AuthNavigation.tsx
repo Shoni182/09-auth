@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation';
 import { logout } from '@/lib/api/clientApi';
 
 const AuthNavigation = () => {
-  const { isAuth, user } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
   const router = useRouter();
 
-  const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuth);
+  const clearIsAuthenticated = useAuthStore((state) => state.clearisAuthenticated);
 
   const handleLogout = async () => {
     // Call logout
@@ -20,7 +20,7 @@ const AuthNavigation = () => {
     // Виконуємо навігацію на сторінку аторизації
     router.push('/sign-in');
   };
-  return isAuth ? (
+  return isAuthenticated ? (
     <>
       <li className={css.navigationItem}>
         <Link href="/profile" prefetch={false} className={css.navigationLink}>
