@@ -23,7 +23,7 @@ const SignIn = () => {
       // Виконуємо редірект або відображаємо помилку
       if (res) {
         setUser(res);
-        // router.push('/profile');
+        router.push('/profile');
       } else {
         setError('invalid email or password');
       }

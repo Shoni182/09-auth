@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 const Header = () => {
   const router = useRouter();
   const { isAuth, user } = useAuthStore();
+  // const [refresh, setIsRefres] = useState();
 
   const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuth);
 
@@ -36,18 +37,17 @@ const Header = () => {
             <Link href="/notes/filter/all">Notes</Link>
           </li>
 
-          <li className={css.navigationItem}>
-            <Link href="/profile" prefetch={false} className={css.navigationLink}>
-              Profile
-            </Link>
-          </li>
-
           {isAuth ? (
             <li className={css.navigationItem}>
-              <p className={css.userEmail}>{user?.username}</p>
+              <li className={css.navigationItem}>
+                <Link href="/profile" prefetch={false} className={css.navigationLink}>
+                  Profile
+                </Link>
+              </li>
               <button onClick={handleLogout} className={css.logoutButton}>
                 Logout
               </button>
+              <p className={css.userEmail}>{user?.username}</p>
             </li>
           ) : (
             <>

@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-// import { persist } from 'zustand/middleware';
 import { User } from '@/types/user';
 
 type AuthStore = {
@@ -15,9 +14,18 @@ const initialDraft: User = {
   avatar: '',
 };
 
+//- тут була помилка в тому, що не були передані стани isAuth. бекенд працював
+//- але навігація не поновлювалась
 export const useAuthStore = create<AuthStore>()((set) => ({
   isAuth: false,
   user: null,
-  setUser: (user) => set(() => ({ user: user })),
-  clearIsAuth: () => set(() => ({ user: initialDraft })),
+  setUser: (user: User) => {
+    set(() => ({ user, isAuth: true }));
+  },
+  clearIsAuth: () => {
+    set(() => ({ user: null, isAuth: false }));
+  },
 }));
+
+// setUser: (user) => set(() => ({ user: user })),
+// clearIsAuth: () => set(() => ({ user: initialDraft })),
