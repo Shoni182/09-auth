@@ -10,7 +10,7 @@ const AuthNavigation = () => {
 
   const router = useRouter();
 
-  const clearIsAuthenticated = useAuthStore((state) => state.clearisAuthenticated);
+  const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuthenticated);
 
   const handleLogout = async () => {
     // Call logout

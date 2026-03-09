@@ -34,9 +34,6 @@ export type UpdateNameProp = {
   username: string;
 };
 
-//: Key
-const myKey = process.env.NEXT_PUBLIC_NOTEHUB_URL;
-
 // : GET Request for all notes
 export const fetchNotes = async ({
   page,
@@ -53,9 +50,6 @@ export const fetchNotes = async ({
       search: query,
       tag: tag,
     },
-    headers: {
-      Authorization: `Bearer ${myKey}`,
-    },
   });
 
   return res.data;
@@ -63,31 +57,19 @@ export const fetchNotes = async ({
 
 // : GET request of one note
 export const fetchNoteById = async (noteId: string) => {
-  const res = await clientApi.get<Note>(`/notes/${noteId}`, {
-    headers: {
-      Authorization: `Bearer ${myKey}`,
-    },
-  });
+  const res = await clientApi.get<Note>(`/notes/${noteId}`, {});
   return res.data;
 };
 
 // : POST request for add a note
 export const createNote = async (taskData: NewNote) => {
-  const res = await clientApi.post<Note>('/notes/', taskData, {
-    headers: {
-      Authorization: `Bearer ${myKey}`,
-    },
-  });
+  const res = await clientApi.post<Note>('/notes/', taskData, {});
   return res.data;
 };
 
 // : DELETE request for delete a note
 export const deleteNote = async (taskId: string) => {
-  const res = await clientApi.delete<Note>(`/notes/${taskId}`, {
-    headers: {
-      Authorization: `Bearer ${myKey}`,
-    },
-  });
+  const res = await clientApi.delete<Note>(`/notes/${taskId}`, {});
   return res.data;
 };
 

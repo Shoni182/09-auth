@@ -5,7 +5,7 @@ type AuthStore = {
   isAuthenticated: boolean;
   user: User | null;
   setUser: (user: User) => void;
-  clearisAuthenticated: () => void;
+  clearIsAuthenticated: () => void;
 };
 
 //- тут була помилка в тому, що не були передані стани isAuthenticated. бекенд працював
@@ -16,7 +16,7 @@ export const useAuthStore = create<AuthStore>()((set) => ({
   setUser: (user: User) => {
     set(() => ({ user, isAuthenticated: true }));
   },
-  clearisAuthenticated: () => {
+  clearIsAuthenticated: () => {
     set(() => ({ user: null, isAuthenticated: false }));
   },
 }));
