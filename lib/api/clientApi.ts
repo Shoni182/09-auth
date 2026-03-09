@@ -12,7 +12,7 @@
 import { type Note } from '@/types/note';
 import { type NewNote } from '@/types/note';
 import { User } from '@/types/user';
-import { clientApi } from '../api';
+import { clientApi } from './api';
 
 // import { nextServer } from '../api';
 

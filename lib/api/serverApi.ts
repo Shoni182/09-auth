@@ -7,9 +7,10 @@ import { Note } from '@/types/note';
 import { User } from '@/types/user';
 
 // import { nextServer } from "../api";
-type CheckSessionRequest = {
-  success: boolean;
-};
+// type CheckSessionRequest = {
+//   success: boolean;
+// };
+
 //: Key
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_URL;
 // : GET Request for all notes
@@ -49,13 +50,22 @@ export const fetchNoteById = async (noteId: string) => {
 
 //: checkSession;
 export const checkSession = async () => {
-  const res = await serverApi.get<CheckSessionRequest>('/auth/session');
-  return res.data.success;
+  const res = await serverApi.get('/auth/session', {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return res;
 };
 
 //: getMe;
 
-export const getMe = async () => {
-  const { data } = await serverApi.get<User>('/users/me');
+export const getMe = async (): Promise<User> => {
+  const cookieStore = await cookies();
+  const { data } = await serverApi.get('/users/me', {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
   return data;
 };
