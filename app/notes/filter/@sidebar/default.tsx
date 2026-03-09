@@ -45,9 +45,9 @@ const SidebarNotes = async () => {
         </Link>
       </li>
 
-      <li className={css.menuItem} key={'Finanace'}>
-        <Link href={`/notes/filter/Finanace`} className={css.menuLink}>
-          Finanace
+      <li className={css.menuItem} key={'Finance'}>
+        <Link href={`/notes/filter/Finance`} className={css.menuLink}>
+          Finance
         </Link>
       </li>
       <li className={css.menuItem} key={'Health'}>

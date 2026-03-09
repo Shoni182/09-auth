@@ -1,9 +1,9 @@
-"use client";
+'use client';
 //: Components
-import css from "./NoteDetails.module.css";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
-import { fetchNoteById } from "@/lib/api";
+import css from './NoteDetails.module.css';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
+import { fetchNoteById } from '@/lib/api/clientApi';
 // import NoteList from "@/components/NoteList/NoteList";
 
 //: Fn
@@ -16,7 +16,7 @@ const NoteDetails = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["note", { id: id }],
+    queryKey: ['note', { id: id }],
     queryFn: () => fetchNoteById(id as string),
     refetchOnMount: false,
   });
