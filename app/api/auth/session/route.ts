@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { api } from '../../api';
+import { serverApi } from '../../api';
 import { parse } from 'cookie';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../../_utils/utils';
@@ -21,7 +21,7 @@ export async function GET() {
     // Якщо accessToken немає - перевіряємо refreshToken
     if (refreshToken) {
       // Виконуємо запит до API, передаючи всі cookie у заголовку
-      const apiRes = await api.get('auth/session', {
+      const apiRes = await serverApi.get('auth/session', {
         headers: {
           // Перетворюємо cookie у рядок
           Cookie: cookieStore.toString(),

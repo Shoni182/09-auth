@@ -11,8 +11,10 @@
 //: Imports
 import { type Note } from '@/types/note';
 import { type NewNote } from '@/types/note';
-import { User, RegisterRequest } from '@/types/user';
-import { nextServer } from '../api';
+import { User } from '@/types/user';
+import { clientApi } from '../api';
+
+// import { nextServer } from '../api';
 
 export interface FetchNotesResponse {
   notes: Note[];
@@ -23,8 +25,13 @@ type CheckSessionRequest = {
   success: boolean;
 };
 
+type RegisterRequest = {
+  email: string;
+  password: string;
+};
+
 //: Key
-const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+const myKey = process.env.NEXT_PUBLIC_NOTEHUB_URL;
 
 // : GET Request for all notes
 export const fetchNotes = async ({
@@ -36,7 +43,7 @@ export const fetchNotes = async ({
   query: string;
   tag?: string;
 }) => {
-  const res = await nextServer.get<FetchNotesResponse>('/api/notes', {
+  const res = await clientApi.get<FetchNotesResponse>('/notes', {
     params: {
       page,
       search: query,
@@ -52,7 +59,7 @@ export const fetchNotes = async ({
 
 // : GET request of one note
 export const fetchNoteById = async (noteId: string) => {
-  const res = await nextServer.get<Note>(`/api/notes/[id]/${noteId}`, {
+  const res = await clientApi.get<Note>(`/notes/[id]/${noteId}`, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -62,7 +69,7 @@ export const fetchNoteById = async (noteId: string) => {
 
 // : POST request for add a note
 export const createNote = async (taskData: NewNote) => {
-  const res = await nextServer.post<Note>('/api/notes/', taskData, {
+  const res = await clientApi.post<Note>('/notes/', taskData, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -72,7 +79,7 @@ export const createNote = async (taskData: NewNote) => {
 
 // : DELETE request for delete a note
 export const deleteNote = async (taskId: string) => {
-  const res = await nextServer.delete<Note>(`/api/notes/${taskId}`, {
+  const res = await clientApi.delete<Note>(`/notes/${taskId}`, {
     headers: {
       Authorization: `Bearer ${myKey}`,
     },
@@ -80,41 +87,41 @@ export const deleteNote = async (taskId: string) => {
   return res.data;
 };
 
-// : POST - register request on the nextServer
+// : POST - register request on the nextserver
 
 export const register = async (data: RegisterRequest) => {
-  const res = await nextServer.post<User>('api/auth/register', data);
+  const res = await clientApi.post<User>('/auth/register', data);
   return res.data;
 };
 
-// : POST - login request on the nextServer
+// : POST - login request on the nextserver
 
 export const login = async (data: RegisterRequest) => {
-  const res = await nextServer.post<User>('api/auth/login', data);
+  const res = await clientApi.post<User>('/auth/login', data);
   return res.data;
 };
 
 //: POST - logout;
 export const logout = async (): Promise<void> => {
-  await nextServer.post('api/auth/logout');
+  await clientApi.post('/auth/logout');
 };
 
 //: checkSession;
 export const checkSession = async () => {
-  const res = await nextServer.get<CheckSessionRequest>('api/auth/session');
+  const res = await clientApi.get<CheckSessionRequest>('/auth/session');
   return res.data.success;
 };
 
 //: getMe;
 
 export const getMe = async () => {
-  const { data } = await nextServer.get<User>('api/users/me');
+  const { data } = await clientApi.get<User>('/users/me');
   return data;
 };
 
 //: updateMe;
 
 export const updateMe = async () => {
-  const res = await nextServer.patch<User>('api/users/me');
+  const res = await clientApi.patch<User>('/users/me');
   return res.data;
 };

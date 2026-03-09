@@ -3,9 +3,14 @@ import css from './SignUpPage.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { register } from '@/lib/api/clientApi';
-import { RegisterRequest } from '@/types/user';
+// import { RegisterRequest } from '@/types/user';
 import { ApiError } from '@/app/api/api';
 import { useAuthStore } from '@/lib/store/authStore';
+
+export type RegisterRequest = {
+  email: string;
+  password: string;
+};
 
 const SignUp = () => {
   const router = useRouter();
