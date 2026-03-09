@@ -126,6 +126,6 @@ export const getMe = async () => {
 //: updateMe;
 
 export const updateMe = async (data: UpdateNameProp) => {
-  const res = await clientApi.patch<User>('/users/me');
+  const res = await clientApi.patch<User>('/users/me', data);
   return res.data;
 };

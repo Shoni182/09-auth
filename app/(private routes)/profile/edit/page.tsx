@@ -57,7 +57,7 @@ const EditUserProfile = () => {
             <input id="username" type="text" className={css.input} />
           </div>
 
-          <p>Email:</p>
+          <p>Email: </p>
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>
