@@ -1,4 +1,3 @@
-'use client';
 import Link from 'next/link';
 import css from './ProfilePage.module.css';
 import Image from 'next/image';
@@ -10,25 +9,23 @@ import { Metadata } from 'next';
 // який обов’язково містить hostname: 'ac.goit.global'.
 
 //: Metatags
-export async function generateMetadata(): Promise<Metadata> {
-  return {
+export const metadata: Metadata = {
+  title: 'Profile',
+  description: 'Page of the user profile',
+  openGraph: {
     title: 'Profile',
     description: 'Page of the user profile',
-    openGraph: {
-      title: 'Profile',
-      description: 'Page of the user profile',
-      url: 'https://08-zustand-eight-beta.vercel.app',
-      images: [
-        {
-          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-          width: 640,
-          height: 640,
-          alt: 'NoteHub Logo image',
-        },
-      ],
-    },
-  };
-}
+    url: 'https://08-zustand-eight-beta.vercel.app',
+    images: [
+      {
+        url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+        width: 640,
+        height: 640,
+        alt: 'NoteHub Logo image',
+      },
+    ],
+  },
+};
 
 const PrivatProfile = () => {
   const { user } = useAuthStore();
