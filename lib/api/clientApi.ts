@@ -19,6 +19,10 @@ export interface FetchNotesResponse {
   totalPages: number;
 }
 
+type CheckSessionRequest = {
+  success: boolean;
+};
+
 //: Key
 const myKey = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
@@ -90,22 +94,22 @@ export const login = async (data: RegisterRequest) => {
   return res.data;
 };
 
-//: logout;
+//: POST - logout;
 export const logout = async (): Promise<void> => {
   await nextServer.post<User>('api/auth/logout');
 };
 
 //: checkSession;
 export const checkSession = async () => {
-  const res = await nextServer.get<User>('api/auth/session');
-  return res.data;
+  const res = await nextServer.get<CheckSessionRequest>('api/auth/session');
+  return res.data.success;
 };
 
 //: getMe;
 
 export const getMe = async () => {
-  const res = await nextServer.get<User>('api/users/me');
-  return res.data;
+  const { data } = await nextServer.get<User>('api/users/me');
+  return data;
 };
 
 //: updateMe;
