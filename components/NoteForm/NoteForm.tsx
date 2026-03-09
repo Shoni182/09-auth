@@ -1,16 +1,16 @@
-"use client";
-import css from "./NoteForm.module.css";
-import { createNote, fetchNoteById } from "@/lib/api";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+'use client';
+import css from './NoteForm.module.css';
+import { createNote, fetchNoteById } from '@/lib/api/clientApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 // import { Formik, Form, } from "formik";
-import type { NewNote } from "@/types/note";
-import type { NoteTag } from "@/types/note";
+import type { NewNote } from '@/types/note';
+import type { NoteTag } from '@/types/note';
 // import * as Yup from "yup";
-import { useRouter } from "next/navigation";
-import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { useRouter } from 'next/navigation';
+import { useNoteDraftStore } from '@/lib/store/noteStore';
 
 // metatags
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 type Props = {
   params: NewNote;
@@ -30,10 +30,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://08-zustand-eight-beta.vercel.app/notes/action/create`,
       images: [
         {
-          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
           width: 640,
           height: 640,
-          alt: "NoteHub Logo image",
+          alt: 'NoteHub Logo image',
         },
       ],
     },
@@ -41,9 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const initialValues: NewNote = {
-  title: "",
-  content: "",
-  tag: "Todo",
+  title: '',
+  content: '',
+  tag: 'Todo',
 };
 
 export default function NoteForm() {
@@ -53,9 +53,7 @@ export default function NoteForm() {
   // 3. Оголошуємо функцію для onChange щоб при зміні будь-якого
   // елемента форми оновити чернетку нотатки в сторі
   const handleChange = (
-    event: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     // 4. Коли користувач змінює будь-яке поле форми — оновлюємо стан
     setDraft({
@@ -66,9 +64,9 @@ export default function NoteForm() {
 
   const handleSubmit = (formData: FormData) => {
     const note: NewNote = {
-      title: formData.get("title") as string,
-      content: formData.get("content") as string,
-      tag: formData.get("tag") as NoteTag,
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      tag: formData.get('tag') as NoteTag,
     };
     mutate(note);
   };
@@ -80,9 +78,9 @@ export default function NoteForm() {
   const { mutate } = useMutation({
     mutationFn: (noteData: NewNote) => createNote(noteData),
     onSuccess: () => (
-      queryClient.invalidateQueries({ queryKey: ["notes"] }),
+      queryClient.invalidateQueries({ queryKey: ['notes'] }),
       clearDraft(),
-      router.push("/notes/filter/all")
+      router.push('/notes/filter/all')
     ),
   });
 
@@ -127,11 +125,16 @@ export default function NoteForm() {
           defaultValue={draft?.tag}
           onChange={handleChange}
         >
-          <option value="Todo">Todo</option>
           <option value="Work">Work</option>
           <option value="Personal">Personal</option>
           <option value="Meeting">Meeting</option>
           <option value="Shopping">Shopping</option>
+          <option value="Ideas">Ideas</option>
+          <option value="Travel">Travel</option>
+          <option value="Finance">Finance</option>
+          <option value="Health">Health</option>
+          <option value="Important">Important</option>
+          <option value="Todo">Todo</option>
         </select>
         {/* <ErrorMessage component="span" name="tag" className={css.error} /> */}
       </div>
