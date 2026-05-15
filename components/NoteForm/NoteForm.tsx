@@ -9,43 +9,6 @@ import type { NoteTag } from '@/types/note';
 import { useRouter } from 'next/navigation';
 import { useNoteDraftStore } from '@/lib/store/noteStore';
 
-// metatags
-// import { Metadata } from 'next';
-
-// type Props = {
-//   params: NewNote;
-// };
-
-// Добавити Router
-
-// export async function generateMetadata({ params }: Props): Promise<Metadata> {
-//   const { title, content } = await params;
-
-//   return {
-//     title: title,
-//     description: content,
-//     openGraph: {
-//       title: title,
-//       description: content,
-//       url: `https://08-zustand-eight-beta.vercel.app/notes/action/create`,
-//       images: [
-//         {
-//           url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
-//           width: 640,
-//           height: 640,
-//           alt: 'NoteHub Logo image',
-//         },
-//       ],
-//     },
-//   };
-// }
-
-// const initialValues: NewNote = {
-//   title: '',
-//   content: '',
-//   tag: 'Todo',
-// };
-
 export default function NoteForm() {
   // 2. Викликаємо хук і отримуємо значення
   const { draft, setDraft, clearDraft } = useNoteDraftStore();

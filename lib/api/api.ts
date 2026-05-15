@@ -1,5 +1,4 @@
 //: lib/api.ts
-// imports
 import axios from 'axios';
 
 export const clientApi = axios.create({

@@ -6,11 +6,6 @@ import { api } from '@/app/api/api';
 import { Note } from '@/types/note';
 import { User } from '@/types/user';
 
-// import { nextServer } from "../api";
-// type CheckSessionRequest = {
-//   success: boolean;
-// };
-
 // : GET Request for all notes
 export const fetchNotes = async ({
   page,

@@ -74,14 +74,12 @@ export const deleteNote = async (taskId: string) => {
 };
 
 // : POST - register request on the nextserver
-
 export const register = async (data: RegisterRequest) => {
   const res = await clientApi.post<User>('/auth/register', data);
   return res.data;
 };
 
 // : POST - login request on the nextserver
-
 export const login = async (data: RegisterRequest) => {
   const res = await clientApi.post<User>('/auth/login', data);
   return res.data;
@@ -99,14 +97,12 @@ export const checkSession = async () => {
 };
 
 //: getMe;
-
 export const getMe = async () => {
   const { data } = await clientApi.get<User>('/users/me');
   return data;
 };
 
 //: updateMe;
-
 export const updateMe = async (data: UpdateNameProp) => {
   const res = await clientApi.patch<User>('/users/me', data);
   return res.data;
